@@ -23,17 +23,52 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/',routes);
 app.use('/users',users);
-app.use('/forms',forms);
 
-app.post('/',function(req,res){
-  var firstname = req.body.txtFirstName;
-  var lasrname = req.body.txtLastName;
+app.get('/login',function(req,res){
+  res.redirect('login.html');
+  //res.sendFile('public/login.html',{root:__dirname});
+  //res.sendFile(__dirname + '/public/login.html');
 
-  var fullname = '<a href="/">Home</a>' + 
-  '<br/>' +
-  'Hello :' + firstname + '' + lasrname;
-
-  res.send(fullname);
 });
 
+app.post('/login',function(req,res){
+  var username = req.body.txtUsername;
+  var password = req.body.txtPassword;
+
+  console.log("Username: " + username + "\nPassword :" + password);
+
+  res.end("yes");
+});
+
+app.use(function(req,res,next){
+
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+
+});
+
+if(app.get('env') === 'development'){
+  app.use(function(err,req,res,next){
+
+    res.status(err.status || 500);
+    res.render('error',{
+
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+app.use(function(err,req,res,next){
+
+  res.status(err.status || 500);
+  res.render('error',{
+
+    message: err.message,
+    error:{}
+    
+  });
+
+});
 module.exports = app;

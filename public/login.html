@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login html file</title>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+  <h1>Login</h1>
+  Username: <input type="text" id="txtUsername" maxlength="16"><br>
+  Password: <input type="password" id="txtPassword" maxlength="16"><br>
+  <input type="button" id="submit" value="Submit">
+
+
+   <script>
+
+       $(document).ready(function(){
+
+           var user,pass;
+           $("#submit").click(function(){
+            user = $("#txtUsername").val();
+            pass = $("#txtPassword").val();
+            $.post("http://localhost:3000/login",{txtUsername:user,txtPassword:pass},function(data){
+
+                if(data)
+                {
+                    alert("Login สำเร็จ");
+                }
+
+            });
+
+           });
+
+       });
+   
+   </script>
+
+</body>
+</html>

@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  form(action='/',method='post')
+    div(class='one two')
+      label(for='txtUsername') txtUsername
+        input(id='txtUsername',type='text',name='txtUsername')
+    div(class='three for')
+      label(for='txtPassword') txtPassword
+        input(id='password',type='password',name='txtPassword')  
+    div(class='five six')
+        input(type='submit',value='Sign Up')
